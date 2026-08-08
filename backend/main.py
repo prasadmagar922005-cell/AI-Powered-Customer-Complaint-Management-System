@@ -15,6 +15,20 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="AIVOA Complaint Management API")
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://ai-powered-customer-complaint-management-system.vercel.app",
+        "https://ai-powered-customer-complaint-management-system-4z067m4eg.vercel.app",
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # Vite's default dev server URL
