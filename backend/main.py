@@ -1,38 +1,24 @@
-
 import io
 import json
 from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pypdf import PdfReader
-
 from database import engine, get_db, Base
 from models import Complaint
 from agent import process_complaint, correct_field
 
-
 Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="AIVOA Complaint Management API")
-
-from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
     allow_origin_regex=r"https://ai-powered-customer.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite's default dev server URL
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 @app.get("/health")
 def health():
