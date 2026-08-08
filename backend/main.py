@@ -19,11 +19,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://ai-powered-customer-complaint-management-system.vercel.app",
-        "https://ai-powered-customer-complaint-management-system-4z067m4eg.vercel.app",
-        "http://localhost:5173",
-    ],
+    allow_origin_regex=r"https://ai-powered-customer.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
